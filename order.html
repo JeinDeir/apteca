@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healing Cross - Оформление заказа</title>
+    <style>
+        .order-container {
+            width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin: 5px auto;
+            position: relative;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        .medicine-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        .price {
+            color: #3a7bd5;
+            font-weight: bold;
+        }
+        
+        .stock {
+            color: #666;
+        }
+        
+        .btn34 {
+            background-color: #3a7bd5;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        button:hover {
+            background-color: #2c5fb3;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .stock-error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .bor {
+            border-top: 10px solid #ddd;
+            padding: 40px;
+        }
+        
+        .sidebar {
+            width: 100px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            z-index: 1;
+        }
+        
+        .sidebar-left {
+            left: 0;
+            background: #D7D2CB;
+            background: linear-gradient(90deg,rgba(215, 210, 203, 1) 0%, rgba(94, 98, 128, 1) 100%);
+        }
+        
+        .sidebar-right {
+            right: 0;
+            border-left: 1px solid #ddd;
+            border-right: none;
+            background: #D7D2CB;
+            background: linear-gradient(-90deg,rgba(215, 210, 203, 1) 0%, rgba(94, 98, 128, 1) 100%);
+        }
+        
+        
+    </style>
+    <link rel="stylesheet" href="css/main.css">
+        <link rel="page" href="Page.js">
+</head>
+<body>
+    <aside class="sidebar sidebar-left"></aside>
+    <div id="page-wrapper"></div>
+
+    <div class="wrapper">
+        <header class="container">
+            <span class="logo">Создание заказа</span>
+            <nav>
+                <ul>
+                    <li><a href="default.html">Главное меню</a></li>
+                    <li><a href="about.html">Склад</a></li>
+                    <li><a href="Port.html">Услуги</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="hero container">
+            <div class="hero--info">
+                <h2>Лечебный крест</h2>
+                <h1>Добро пожаловать на наш сайт</h1>
+                <p>Мы создали единую базу нашей компании для вашего удобства.</p>
+                <button class="btn34">Получить больше информации</button>
+            </div>
+            <img src="img/Snk.svg" alt="">
+        </div>
+    </div>
+    
+    <aside class="sidebar sidebar-right"></aside>
+    
+    <div class="order-container">
+        <h2>Оформление заказа</h2>
+        
+        <div class="form-group">
+            <label for="medicine">Лекарство:</label>
+            <select id="medicine">
+                <option value="">-- Выберите лекарство --</option>
+                
+            </select>
+            <div class="medicine-info">
+                <span class="price" id="price">-</span>
+                <span class="stock" id="stock">-</span>
+            </div>
+            <div class="error-message" id="medicineError">Пожалуйста, выберите лекарство</div>
+            <div class="error-message stock-error" id="stockError" style="display: none;">Недостаточно товара на складе</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="quantity">Количество:</label>
+            <input type="number" id="quantity" min="1" value="1">
+            <div class="error-message" id="quantityError">Пожалуйста, укажите количество</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="name">ФИО:</label>
+            <input type="text" id="name" placeholder="Иванов Иван Иванович">
+            <div class="error-message" id="nameError">Пожалуйста, введите ФИО</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" placeholder="+7 (999) 123-45-67">
+            <div class="error-message" id="phoneError">Пожалуйста, введите телефон</div>
+        </div>
+        
+        <button id="btn34" disabled>Оформить заказ</button>
+        
+        <div class="success-message" id="successMessage">
+            Ваш заказ успешно оформлен! Номер заказа: <span id="orderNumber"></span>
+        </div>
+    </div>
+
+    <script>
+    
+        function initializeMedicines() {
+            let medicines = localStorage.getItem('medicines');
+            if (!medicines) {
+                medicines = {
+                    "Амоксициллин": { price: 450, stock: 24 },
+                    "Нурофен": { price: 320, stock: 15 },
+                    "Парацетамол": { price: 95, stock: 37 },
+                    "Лоратадин": { price: 180, stock: 42 },
+                    "Смекта": { price: 280, stock: 8 }
+                };
+                localStorage.setItem('medicines', JSON.stringify(medicines));
+            }
+            return JSON.parse(medicines);
+        }
+
+        
+        function updateMedicineSelect(medicines) {
+            const medicineSelect = document.getElementById('medicine');
+            medicineSelect.innerHTML = '<option value="">-- Выберите лекарство --</option>';
+            
+            for (const [name, data] of Object.entries(medicines)) {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = `${name} (${data.stock} шт)`;
+                option.dataset.stock = data.stock;
+                option.dataset.price = data.price;
+                medicineSelect.appendChild(option);
+            }
+        }
+
+       
+        const medicineSelect = document.getElementById('medicine');
+        const priceSpan = document.getElementById('price');
+        const stockSpan = document.getElementById('stock');
+        const quantityInput = document.getElementById('quantity');
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        const submitBtn = document.getElementById('submitOrder');
+        const successMessage = document.getElementById('successMessage');
+        const orderNumberSpan = document.getElementById('orderNumber');
+        const medicineError = document.getElementById('medicineError');
+        const quantityError = document.getElementById('quantityError');
+        const nameError = document.getElementById('nameError');
+        const phoneError = document.getElementById('phoneError');
+        const stockError = document.getElementById('stockError');
+
+       
+        let medicines = initializeMedicines();
+        updateMedicineSelect(medicines);
+
+        
+        function checkStock() {
+            const selectedOption = medicineSelect.options[medicineSelect.selectedIndex];
+            const selectedQuantity = parseInt(quantityInput.value) || 0;
+            const availableStock = parseInt(selectedOption.dataset.stock) || 0;
+            
+            if (selectedOption.value && selectedQuantity > availableStock) {
+                stockError.style.display = 'block';
+                stockError.textContent = `Недостаточно товара. Доступно: ${availableStock} шт`;
+                return false;
+            } else {
+                stockError.style.display = 'none';
+                return true;
+            }
+        }
+
+        
+        function checkFormValidity() {
+            const isMedicineSelected = medicineSelect.value !== '';
+            const selectedQuantity = parseInt(quantityInput.value) || 0;
+            const isQuantityValid = selectedQuantity > 0;
+            const isNameValid = nameInput.value.trim().length > 0;
+            const isPhoneValid = phoneInput.value.trim().length > 0;
+            const isStockAvailable = checkStock();
+            
+            medicineError.style.display = isMedicineSelected ? 'none' : 'block';
+            quantityError.style.display = isQuantityValid ? 'none' : 'block';
+            nameError.style.display = isNameValid ? 'none' : 'block';
+            phoneError.style.display = isPhoneValid ? 'none' : 'block';
+            
+            submitBtn.disabled = !(isMedicineSelected && isQuantityValid && isNameValid && isPhoneValid && isStockAvailable);
+        }
+
+        
+        medicineSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            if (selectedOption.value) {
+                priceSpan.textContent = `${selectedOption.dataset.price} ₽`;
+                stockSpan.textContent = `Остаток: ${selectedOption.dataset.stock} шт`;
+            } else {
+                priceSpan.textContent = '-';
+                stockSpan.textContent = '-';
+            }
+            checkFormValidity();
+        });
+
+   
+        quantityInput.addEventListener('input', checkFormValidity);
+        nameInput.addEventListener('input', checkFormValidity);
+        phoneInput.addEventListener('input', checkFormValidity);
+
+       
+        submitBtn.addEventListener('click', function() {
+            const selectedMedicine = medicineSelect.value;
+            const selectedOption = medicineSelect.options[medicineSelect.selectedIndex];
+            const quantity = parseInt(quantityInput.value);
+            const price = parseInt(selectedOption.dataset.price);
+            const currentStock = parseInt(selectedOption.dataset.stock);
+            
+            
+            const order = {
+                id: Date.now(),
+                medicine: selectedMedicine,
+                price: price,
+                quantity: quantity,
+                total: price * quantity,
+                name: nameInput.value,
+                phone: phoneInput.value,
+                date: new Date().toLocaleString()
+            };
+            
+            
+            medicines[selectedMedicine].stock = currentStock - quantity;
+            localStorage.setItem('medicines', JSON.stringify(medicines));
+            
+            
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            
+            orderNumberSpan.textContent = order.id;
+            successMessage.style.display = 'block';
+            updateMedicineSelect(medicines);
+            
+            
+            medicineSelect.value = '';
+            priceSpan.textContent = '-';
+            stockSpan.textContent = '-';
+            quantityInput.value = 1;
+            nameInput.value = '';
+            phoneInput.value = '';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>

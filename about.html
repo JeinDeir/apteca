@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Healing Cross</title>
+        <style>
+            h2 {
+            text-align: center;
+            color: #3a7bd5;
+            margin-bottom: 20px;
+        }
+                .btn34 {
+            background-color: #3a7bd5;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        button:hover {
+            background-color: #2c5fb3;
+        }
+            
+            .square-container {
+             width: 800px;
+            height: flex;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.1);
+            display: flex;
+            position: relative;
+            margin: 5px auto;
+            
+        }
+         .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        
+        .medicine-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            flex: 1;
+        }
+        
+        .medicine-table th {
+            background: #74768A;
+            color: white;
+            padding: 10px 8px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+        
+        .medicine-table td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .medicine-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .medicine-table tr:hover {
+            background-color: #f0f0f0;
+        }
+        
+     
+        .button-panel {
+            width: 80px;
+            background: #74768A;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; 
+
+            
+        }
+        
+        .menu-button {
+            padding: 15px 20px;
+            margin: 10px;
+            background: #5E6280;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .menu-button:hover {
+            background: #4a4d63;
+            transform: translateX(5px);
+        }
+            .sidebar {
+            width: 100px;
+            height: 150vh;
+            position: fixed;
+            top: 0;
+            padding: 30px;
+            background: #f0f0f0;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            z-index: 1;
+        }
+        
+        .sidebar-left {
+            left: 0;
+            background: #D7D2CB;
+background: linear-gradient(90deg,rgba(215, 210, 203, 1) 0%, rgba(94, 98, 128, 1) 100%);
+        }
+        
+        .sidebar-right {
+            right: 0;
+            border-left: 1px solid #ddd;
+            border-right: none;
+            background: #D7D2CB;
+background: linear-gradient(-90deg,rgba(215, 210, 203, 1) 0%, rgba(94, 98, 128, 1) 100%);
+        }
+         ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #74768A;
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5E6280;
+        }
+        </style>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="page" href="Page.js">
+    </head>
+    <body>
+         
+        <aside class="sidebar sidebar-left">
+       
+    </aside>
+        <div id="page-wrapper">
+   
+</div>
+
+
+<script src="js/transitions.js" defer></script>
+    <div class="wrapper">
+        
+
+        <header class="container">
+            <span class="logo">Склад</span>
+            <nav>
+                <ul>
+                    
+                    <li><a href="default.html">Главное меню</a></li>
+                    
+                    <li><a href="Port.html">Услуги</a></li>
+                    <li><a href="order.html">Сделать заказ</a></li>
+                    
+                </ul>
+            </nav>
+        </header>
+        <div class="hero container">
+            <div class="hero--info">
+                <h2>Лечебный крест</h2>
+                <h1>Добро пожаловать наш сайт</h1>
+                <p>Мы создали единую базу нашей компании для вашего удобства.
+                </p>
+                <button class="btn34">Получить больше информации</button>
+            </div>
+            <img src="img/Snk.svg" alt="">
+        </div>
+
+        
+        <div class="square-container">
+        
+        <div class="main-content">
+            <button class="menu-button active" data-category="all">Все</button>
+            <button class="menu-button" data-category="injections">Иньекции</button>
+            <button class="menu-button" data-category="supplements">БАДы</button>
+            <button class="menu-button" data-category="medicines">Препараты</button>
+            <button class="menu-button" data-category="licensed">Лиц. препараты</button>
+        </div>
+        
+       
+        <div class="main-content">
+            <table class="medicine-table">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Категория</th>
+                        <th>Срок годности</th>
+                        <th>Цена</th>
+                        <th>Остаток</th>
+                    </tr>
+                </thead>
+                <tbody id="medicine-data">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+     
+        const medicines = [
+             { name: "Амоксициллин", category: "injections", expiry: "12.2024", price: "450 ₽", stock: "24 шт" },
+            { name: "Цефтриаксон", category: "injections", expiry: "07.2024", price: "670 ₽", stock: "5 шт" },
+            { name: "Лидокаин", category: "injections", expiry: "05.2025", price: "320 ₽", stock: "18 шт" },
+            { name: "Дексаметазон", category: "injections", expiry: "09.2024", price: "280 ₽", stock: "12 шт" },
+            { name: "Анальгин", category: "injections", expiry: "11.2025", price: "190 ₽", stock: "22 шт" },
+            { name: "Витамин B12", category: "injections", expiry: "03.2025", price: "350 ₽", stock: "8 шт" },
+         
+            { name: "Омега-3", category: "supplements", expiry: "10.2025", price: "890 ₽", stock: "12 шт" },
+            { name: "Магний B6", category: "supplements", expiry: "09.2025", price: "540 ₽", stock: "18 шт" },
+            { name: "Эхинацея", category: "supplements", expiry: "08.2024", price: "320 ₽", stock: "7 шт" },
+            { name: "Рыбий жир", category: "supplements", expiry: "12.2024", price: "450 ₽", stock: "15 шт" },
+            { name: "Элеутерококк", category: "supplements", expiry: "05.2025", price: "210 ₽", stock: "9 шт" },
+            { name: "Иммунал", category: "supplements", expiry: "07.2025", price: "380 ₽", stock: "11 шт" },
+            
+          
+            { name: "Нурофен", category: "medicines", expiry: "05.2025", price: "320 ₽", stock: "15 шт" },
+            { name: "Парацетамол", category: "medicines", expiry: "03.2025", price: "95 ₽", stock: "37 шт" },
+            { name: "Смекта", category: "medicines", expiry: "11.2024", price: "280 ₽", stock: "8 шт" },
+            { name: "Активированный уголь", category: "medicines", expiry: "02.2026", price: "50 ₽", stock: "42 шт" },
+            { name: "Но-Шпа", category: "medicines", expiry: "08.2025", price: "180 ₽", stock: "19 шт" },
+            { name: "Аспирин", category: "medicines", expiry: "04.2025", price: "120 ₽", stock: "25 шт" },
+            { name: "Корвалол", category: "medicines", expiry: "06.2024", price: "90 ₽", stock: "13 шт" },
+            { name: "Валидол", category: "medicines", expiry: "09.2024", price: "60 ₽", stock: "28 шт" },
+            { name: "Фенистил", category: "medicines", expiry: "12.2025", price: "420 ₽", stock: "6 шт" },
+            { name: "Мезим", category: "medicines", expiry: "01.2025", price: "310 ₽", stock: "17 шт" },
+            
+            
+            { name: "Лоратадин", category: "licensed", expiry: "08.2024", price: "180 ₽", stock: "42 шт" },
+            { name: "Зодак", category: "licensed", expiry: "05.2025", price: "290 ₽", stock: "14 шт" },
+            { name: "Эриус", category: "licensed", expiry: "07.2025", price: "380 ₽", stock: "9 шт" },
+            { name: "Ксарелто", category: "licensed", expiry: "11.2024", price: "1,450 ₽", stock: "5 шт" },
+            { name: "Нолипрел", category: "licensed", expiry: "03.2026", price: "890 ₽", stock: "7 шт" },
+            { name: "Амлодипин", category: "licensed", expiry: "09.2025", price: "320 ₽", stock: "11 шт" },
+            { name: "Престариум", category: "licensed", expiry: "04.2025", price: "540 ₽", stock: "8 шт" },
+            { name: "Мексидол", category: "licensed", expiry: "12.2024", price: "670 ₽", stock: "6 шт" }
+        ];
+
+      
+        const buttons = document.querySelectorAll('.menu-button');
+        const tableBody = document.getElementById('medicine-data');
+
+        
+        function renderTable(category = 'all') {
+            tableBody.innerHTML = '';
+            
+            const filteredMedicines = category === 'all' 
+                ? medicines 
+                : medicines.filter(item => item.category === category);
+            
+            filteredMedicines.forEach(med => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${med.name}</td>
+                    <td>${getCategoryName(med.category)}</td>
+                    <td>${med.expiry}</td>
+                    <td>${med.price}</td>
+                    <td>${med.stock}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        
+        function getCategoryName(category) {
+            const names = {
+                'all': 'Все',
+                'injections': 'Иньекции',
+                'supplements': 'БАДы',
+                'medicines': 'Препараты',
+                'licensed': 'Лиц. препараты'
+            };
+            return names[category];
+        }
+
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                
+                buttons.forEach(btn => btn.classList.remove('active'));
+                
+                
+                this.classList.add('active');
+                
+              
+                const category = this.dataset.category;
+                renderTable(category);
+            });
+        });
+
+       
+        renderTable();
+    </script>
+</body>
+</html>
